@@ -1,7 +1,7 @@
-package net.mocha.client.feature.module.impl;
+package net.singularity.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import me.x150.jmessenger.Listener;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.ChestMinecartEntity;
 import net.minecraft.item.Item;
@@ -25,10 +25,11 @@ import static net.minecraft.screen.slot.SlotActionType.PICKUP;
 
 public class Singularity {
 
-    public Singularity() {
-        super("Singularity", "All your item storage needs, in a single, infinitley dense block.");
-    }
+//    public Singularity() {
+//        super("Singularity", "All your item storage needs, in a single, infinitley dense block.");
+//    }
     private boolean isUpdated = false;
+    private static final MinecraftClient client = MinecraftClient.getInstance();
     DoubleSetting plrID = this.config.add(DoubleSetting.builder(
             "Storage ID",
             """
@@ -51,18 +52,14 @@ public class Singularity {
     private final HashMap<ItemStack, Integer> singleContents = new HashMap<>();
     private final HashMap<Integer, HashMap<ItemStack, Integer>> containerContents = new HashMap<>();
     private final List<StorageData> data = new ArrayList<>();
-    @Override
-    protected void enable() {
-
-    }
-    @Override
-    protected void disable() {
-        b = false;
-    }
+//    @Override
+//    protected void disable() {
+//        b = false;
+//    }
     boolean b = false;
-    @Listener
-    void onTick(PlayerTickEvent event) {
-        dataSlot = plrID.getValue().intValue();
+//    @Listener
+    public void onTick(MinecraftClient event) {
+        dataSlot = plrID;
         for(Entity e : client.player.networkHandler.getWorld().getEntities()) {
             if(e instanceof ChestMinecartEntity en) chestCartsInRange.put(en.getId(), en.getPos());
         }
